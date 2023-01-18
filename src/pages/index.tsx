@@ -2,15 +2,15 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { Inter } from '@next/font/google';
 import styles from '../styles/Home.module.css';
+import { useUsersQuery } from '../generated/graphql';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const Home = () => {
+  const [{ data }] = useUsersQuery();
+  console.log(data);
   const onClick = async () => {
     console.log('onClick');
-    const response = await fetch('http://localhost:3000/api/hello');
-    const data = await response.json();
-    console.log(data);
   };
   return (
     <>
