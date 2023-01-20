@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "nexus": "ts-node -T -O {\\\"module\\\":\\\"commonjs\\\"} src/backend/schema",
-    "codegen": "graphql-codegen --config codegen/codegen.json"
+    "codegen": "graphql-codegen"
   },
   "dependencies": {
     "@next/font": "13.1.1",
