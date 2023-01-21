@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "nexus": "ts-node -T -O {\\\"module\\\":\\\"commonjs\\\"} src/backend/schema",
+    "nexus": "ts-node -T -O {\\\"module\\\":\\\"commonjs\\\"} src/backend/graphql",
     "codegen": "graphql-codegen"
   },
   "dependencies": {
