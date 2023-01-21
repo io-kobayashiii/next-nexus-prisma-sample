@@ -1,5 +1,5 @@
 import { makeSchema } from 'nexus';
-import * as types from './schemas/index';
+import * as types from './graphql/index';
 import { join } from 'path';
 
 export const schema = makeSchema({
