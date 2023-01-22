@@ -18,7 +18,7 @@ export type Scalars = {
 export type AuthPayload = {
   __typename?: 'AuthPayload';
   email: Scalars['String'];
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   name: Scalars['String'];
 };
 
@@ -42,14 +42,23 @@ export type Query = {
 export type UserType = {
   __typename?: 'UserType';
   email: Scalars['String'];
-  id: Scalars['ID'];
+  id: Scalars['Int'];
   name: Scalars['String'];
 };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'UserType', email: string, name: string, id: string } | null> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'UserType', email: string, name: string, id: number } | null> | null };
+
+export type CreateUserMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+  name: Scalars['String'];
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'AuthPayload', id: number, email: string, name: string } | null };
 
 
 export const UsersDocument = gql`
@@ -64,4 +73,17 @@ export const UsersDocument = gql`
 
 export function useUsersQuery(options?: Omit<Urql.UseQueryArgs<UsersQueryVariables>, 'query'>) {
   return Urql.useQuery<UsersQuery, UsersQueryVariables>({ query: UsersDocument, ...options });
+};
+export const CreateUserDocument = gql`
+    mutation CreateUser($email: String!, $password: String!, $name: String!) {
+  createUser(email: $email, password: $password, name: $name) {
+    id
+    email
+    name
+  }
+}
+    `;
+
+export function useCreateUserMutation() {
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
 };
