@@ -15,6 +15,25 @@ export type Scalars = {
   Float: number;
 };
 
+export type AuthPayload = {
+  __typename?: 'AuthPayload';
+  email: Scalars['String'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createUser?: Maybe<AuthPayload>;
+};
+
+
+export type MutationCreateUserArgs = {
+  email?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   users?: Maybe<Array<Maybe<UserType>>>;
@@ -23,7 +42,7 @@ export type Query = {
 export type UserType = {
   __typename?: 'UserType';
   email: Scalars['String'];
-  id: Scalars['String'];
+  id: Scalars['ID'];
   name: Scalars['String'];
 };
 
