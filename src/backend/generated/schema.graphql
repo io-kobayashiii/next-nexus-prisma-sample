@@ -2,12 +2,22 @@
 ### Do not make changes to this file directly
 
 
+type AuthPayload {
+  email: String!
+  id: Int!
+  name: String!
+}
+
+type Mutation {
+  createUser(email: String, name: String, password: String): AuthPayload
+}
+
 type Query {
   users: [UserType]
 }
 
 type UserType {
   email: String!
-  id: String!
+  id: Int!
   name: String!
 }
