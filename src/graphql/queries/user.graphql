@@ -5,3 +5,11 @@ query Users {
     id
   }
 }
+
+mutation CreateUser($email: String!, $password: String!, $name: String!) {
+  createUser(email: $email, password: $password, name: $name) {
+    id
+    email
+    name
+  }
+}
