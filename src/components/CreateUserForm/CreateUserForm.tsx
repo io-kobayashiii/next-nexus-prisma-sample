@@ -44,11 +44,7 @@ export const CreateUserForm = ({ className }: Props) => {
 
   return (
     <>
-      <div
-        className={`${
-          className ?? ''
-        } max-w-500 w-100p bg-gray-800 rounded-8 p-30`}
-      >
+      <div className={`${className ?? ''} bg-gray-800 rounded-8 p-30`}>
         <h2 className={'text-20 font-bold'}>Create</h2>
         <Box
           id={'create-user-form'}
