@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation } from 'urql';
 import { CreateUserDocument } from '../../generated/graphql';
 import * as yup from 'yup';
@@ -15,14 +15,18 @@ type Props = {
 export const CreateUserForm = ({ className }: Props) => {
   const [_, createUser] = useMutation(CreateUserDocument);
 
-  const schema = yup.object({
-    email: yup
-      .string()
-      .email('メールアドレスの形式が正しくありません')
-      .required('この項目は必須です'),
-    password: yup.string().required('この項目は必須です'),
-    name: yup.string().required('この項目は必須です'),
-  });
+  const schema = useMemo(
+    () =>
+      yup.object({
+        email: yup
+          .string()
+          .email('メールアドレスの形式が正しくありません')
+          .required('この項目は必須です'),
+        password: yup.string().required('この項目は必須です'),
+        name: yup.string().required('この項目は必須です'),
+      }),
+    []
+  );
 
   const {
     register,
@@ -34,13 +38,9 @@ export const CreateUserForm = ({ className }: Props) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (formInput) => {
     console.log('onCreateButtonClick / formInput:', formInput);
-    // const result = await createUser(formInput);
-    // console.log(result);
+    const result = await createUser(formInput);
+    console.log(result);
   };
-
-  useEffect(() => {
-    console.log('errors:', errors);
-  }, [errors]);
 
   return (
     <>
@@ -56,23 +56,24 @@ export const CreateUserForm = ({ className }: Props) => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <TextField
-            label="Email"
+            label="メールアドレス"
             variant="standard"
-            className={'w-100p'}
+            className={'w-100p mt-20'}
             error={'email' in errors}
             helperText={errors.email?.message as string}
             {...register('email')}
           />
           <TextField
-            label="Password"
+            label="パスワード"
             variant="standard"
             className={'w-100p mt-20'}
+            type={'password'}
             error={'password' in errors}
             helperText={errors.password?.message as string}
             {...register('password')}
           />
           <TextField
-            label="Name"
+            label="表示名"
             variant="standard"
             className={'w-100p mt-20'}
             error={'name' in errors}
