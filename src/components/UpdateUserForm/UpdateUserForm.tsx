@@ -12,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-export const CreateUserForm = ({ className }: Props) => {
+export const UpdateUserForm = ({ className }: Props) => {
   const [_, createUser] = useMutation(CreateUserDocument);
 
   const schema = useMemo(
@@ -36,20 +36,19 @@ export const CreateUserForm = ({ className }: Props) => {
     resolver: yupResolver(schema),
   });
 
-  const onCreateButtonClick: SubmitHandler<FieldValues> = async (formInput) => {
-    console.log('onCreateButtonClick / formInput:', formInput);
-    const result = await createUser(formInput);
-    console.log(result);
+  const onUpdateButtonClick: SubmitHandler<FieldValues> = async (formInput) => {
+    console.log('onUpdateButtonClick / formInput:', formInput);
   };
 
   return (
     <>
       <div className={`${className ?? ''} bg-gray-800 rounded-8 p-30`}>
-        <h2 className={'text-20 font-bold'}>Create</h2>
+        <h2 className={'text-20 font-bold'}>Update</h2>
         <Box
-          id={'create-user-form'}
+          id={'update-user-form'}
           component={'form'}
-          onSubmit={handleSubmit(onCreateButtonClick)}
+          autoComplete={'off'}
+          onSubmit={handleSubmit(onUpdateButtonClick)}
         >
           <TextField
             label="メールアドレス"
@@ -82,9 +81,9 @@ export const CreateUserForm = ({ className }: Props) => {
           <Button
             variant={'contained'}
             type={'submit'}
-            form={'create-user-form'}
+            form={'update-user-form'}
           >
-            Create
+            Update
           </Button>
         </div>
       </div>
@@ -92,4 +91,4 @@ export const CreateUserForm = ({ className }: Props) => {
   );
 };
 
-export default CreateUserForm;
+export default UpdateUserForm;
