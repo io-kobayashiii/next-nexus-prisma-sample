@@ -14,8 +14,10 @@ export const Home = () => {
       </Head>
       <main className={'flex justify-center items-center min-h-100vh'}>
         <div className={'max-w-500 w-100p bg-gray-100 rounded-8 p-30'}>
-          <Link href={'/users'}>
-            <Button variant={'contained'}>to Users page</Button>
+          <Link href={'/users'} className={'w-100p'}>
+            <Button variant={'contained'} className={'w-100p'}>
+              to Users page
+            </Button>
           </Link>
         </div>
       </main>
