@@ -1,5 +1,13 @@
-import { list, mutationType, objectType, queryField, stringArg } from 'nexus';
+import {
+  list,
+  mutationType,
+  nonNull,
+  objectType,
+  queryField,
+  stringArg,
+} from 'nexus';
 import bcrypt from 'bcryptjs';
+import { MessageType } from './response';
 
 export const UserType = objectType({
   name: 'UserType',
@@ -38,6 +46,27 @@ export const UserMutationField = mutationType({
           },
         });
         return newUser;
+      },
+    });
+
+    t.field('deleteUser', {
+      type: MessageType,
+      args: {
+        email: nonNull(stringArg()),
+      },
+      resolve: async (_root, { email }, ctx) => {
+        console.log('deleteUser / email:', email);
+        try {
+          await ctx.prisma.user.delete({ where: { email } });
+          return {
+            message: 'User deletion is succeeded',
+          };
+        } catch (error) {
+          console.log(error);
+          return {
+            message: 'User is not found',
+          };
+        }
       },
     });
   },
