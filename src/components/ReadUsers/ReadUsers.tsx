@@ -55,7 +55,6 @@ export const ReadUsers = ({ className }: Props) => {
               createdAt: new Date(user!.createdAt).toLocaleString(),
               updatedAt: new Date(user!.updatedAt).toLocaleString(),
             }))}
-            pageSize={10}
             autoHeight
           />
         )}

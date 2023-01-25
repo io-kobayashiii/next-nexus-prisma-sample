@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useMemo } from 'react';
 import { useMutation } from 'urql';
-import { CreateUserDocument } from '../../generated/graphql';
+import { DeleteUserDocument } from '../../generated/graphql';
 import * as yup from 'yup';
 import { SubmitHandler, useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const DeleteUserForm = ({ className }: Props) => {
-  const [_, createUser] = useMutation(CreateUserDocument);
+  const [__, deleteUser] = useMutation(DeleteUserDocument);
 
   const schema = useMemo(
     () =>
@@ -36,6 +36,8 @@ export const DeleteUserForm = ({ className }: Props) => {
 
   const onDeleteButtonClick: SubmitHandler<FieldValues> = async (formInput) => {
     console.log('onDeleteButtonClick / formInput:', formInput);
+    const result = await deleteUser(formInput);
+    console.log(result);
   };
 
   return (

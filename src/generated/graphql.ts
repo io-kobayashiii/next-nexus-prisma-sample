@@ -17,9 +17,15 @@ export type Scalars = {
   DateTime: string;
 };
 
+export type MessageType = {
+  __typename?: 'MessageType';
+  message: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<UserType>;
+  deleteUser?: Maybe<MessageType>;
 };
 
 
@@ -27,6 +33,11 @@ export type MutationCreateUserArgs = {
   email?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
+};
+
+
+export type MutationDeleteUserArgs = {
+  email: Scalars['String'];
 };
 
 export type Query = {
@@ -57,6 +68,13 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'UserType', id: number, email: string, name: string } | null };
 
+export type DeleteUserMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'MessageType', message: string } | null };
+
 
 export const UsersDocument = gql`
     query Users {
@@ -85,4 +103,15 @@ export const CreateUserDocument = gql`
 
 export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
+};
+export const DeleteUserDocument = gql`
+    mutation DeleteUser($email: String!) {
+  deleteUser(email: $email) {
+    message
+  }
+}
+    `;
+
+export function useDeleteUserMutation() {
+  return Urql.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(DeleteUserDocument);
 };
