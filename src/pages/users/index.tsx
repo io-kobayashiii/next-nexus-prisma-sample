@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import CreateUserForm from '../../components/CreateUserForm/CreateUserForm';
 import DeleteUserForm from '../../components/DeleteUserForm/DeleteUserForm';
+import ReadUsers from '../../components/ReadUsers/ReadUsers';
 import UpdateUserForm from '../../components/UpdateUserForm/UpdateUserForm';
 
 export const Page = () => {
@@ -19,7 +20,7 @@ export const Page = () => {
             <DeleteUserForm className={'ml-30 w-[calc(100%/3)]'} />
           </div>
           <div className={'mt-30'}>
-            <CreateUserForm />
+            <ReadUsers />
           </div>
         </div>
       </main>

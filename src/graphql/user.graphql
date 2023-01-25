@@ -1,8 +1,10 @@
 query Users {
   users {
+    id
     email
     name
-    id
+    createdAt
+    updatedAt
   }
 }
 

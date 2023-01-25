@@ -1,9 +1,10 @@
-import { makeSchema } from 'nexus';
+import { asNexusMethod, makeSchema } from 'nexus';
 import * as types from './graphql/index';
 import { join } from 'path';
+import { GraphQLDateTime } from 'graphql-scalars';
 
 export const schema = makeSchema({
-  types,
+  types: [types, asNexusMethod(GraphQLDateTime, 'dateTime', 'Date')],
   contextType: {
     module: join(process.cwd(), 'src', 'backend', 'context.ts'),
     export: 'Context',

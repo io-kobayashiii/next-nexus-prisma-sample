@@ -1,11 +1,4 @@
-import {
-  list,
-  mutationType,
-  nonNull,
-  objectType,
-  queryField,
-  stringArg,
-} from 'nexus';
+import { list, mutationType, objectType, queryField, stringArg } from 'nexus';
 import bcrypt from 'bcryptjs';
 
 export const UserType = objectType({
@@ -14,6 +7,8 @@ export const UserType = objectType({
     t.nonNull.int('id');
     t.nonNull.string('email');
     t.nonNull.string('name');
+    t.nonNull.dateTime('createdAt');
+    t.nonNull.dateTime('updatedAt');
   },
 });
 
@@ -27,14 +22,7 @@ export const UsersQueryField = queryField('users', {
 export const UserMutationField = mutationType({
   definition: (t) => {
     t.field('createUser', {
-      type: objectType({
-        name: 'AuthPayload',
-        definition: (t) => {
-          t.nonNull.int('id');
-          t.nonNull.string('email');
-          t.nonNull.string('name');
-        },
-      }),
+      type: UserType,
       args: {
         email: stringArg(),
         password: stringArg(),
@@ -49,11 +37,7 @@ export const UserMutationField = mutationType({
             name: name!,
           },
         });
-        return {
-          id: newUser.id,
-          email: newUser.email,
-          name: newUser.name,
-        };
+        return newUser;
       },
     });
   },
