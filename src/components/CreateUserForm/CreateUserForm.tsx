@@ -83,6 +83,7 @@ export const CreateUserForm = ({ className }: Props) => {
             variant={'contained'}
             type={'submit'}
             form={'create-user-form'}
+            className={'bg-green-600'}
           >
             Create
           </Button>

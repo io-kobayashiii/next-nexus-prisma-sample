@@ -13,18 +13,13 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-};
-
-export type AuthPayload = {
-  __typename?: 'AuthPayload';
-  email: Scalars['String'];
-  id: Scalars['Int'];
-  name: Scalars['String'];
+  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
+  DateTime: string;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser?: Maybe<AuthPayload>;
+  createUser?: Maybe<UserType>;
 };
 
 
@@ -41,15 +36,17 @@ export type Query = {
 
 export type UserType = {
   __typename?: 'UserType';
+  createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'UserType', email: string, name: string, id: number } | null> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'UserType', id: number, email: string, name: string, createdAt: string, updatedAt: string } | null> | null };
 
 export type CreateUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -58,15 +55,17 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'AuthPayload', id: number, email: string, name: string } | null };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'UserType', id: number, email: string, name: string } | null };
 
 
 export const UsersDocument = gql`
     query Users {
   users {
+    id
     email
     name
-    id
+    createdAt
+    updatedAt
   }
 }
     `;

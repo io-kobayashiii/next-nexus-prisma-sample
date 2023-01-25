@@ -62,6 +62,7 @@ export const DeleteUserForm = ({ className }: Props) => {
             variant={'contained'}
             type={'submit'}
             form={'dalete-user-form'}
+            className={'bg-red-600'}
           >
             Delete
           </Button>

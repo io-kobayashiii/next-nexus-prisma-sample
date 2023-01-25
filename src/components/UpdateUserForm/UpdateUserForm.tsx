@@ -82,6 +82,7 @@ export const UpdateUserForm = ({ className }: Props) => {
             variant={'contained'}
             type={'submit'}
             form={'update-user-form'}
+            className={'bg-orange-600'}
           >
             Update
           </Button>
