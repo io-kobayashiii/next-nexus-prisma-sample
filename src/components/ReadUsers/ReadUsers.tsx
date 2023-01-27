@@ -56,6 +56,8 @@ export const ReadUsers = ({ className }: Props) => {
               updatedAt: new Date(user!.updatedAt).toLocaleString(),
             }))}
             autoHeight
+            rowsPerPageOptions={[10, 30, 50, 100]}
+            pageSize={10}
           />
         )}
       </div>
