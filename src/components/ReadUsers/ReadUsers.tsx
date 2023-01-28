@@ -1,6 +1,7 @@
 import { useUsersQuery } from '../../generated/graphql';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useMemo } from 'react';
+import { Skeleton } from '@mui/material';
 
 type Props = {
   className?: string;
@@ -59,6 +60,11 @@ export const ReadUsers = ({ className }: Props) => {
             rowsPerPageOptions={[10, 30, 50, 100]}
             pageSize={10}
           />
+        )}
+        {fetching && (
+          <>
+            <Skeleton variant="rounded" className={'mt-20 w-100p h-160'} />
+          </>
         )}
       </div>
     </>
