@@ -63,7 +63,9 @@ export const ReadUsers = ({ className }: Props) => {
         )}
         {fetching && (
           <>
-            <Skeleton variant="rounded" className={'mt-20 w-100p h-160'} />
+            <Skeleton variant="rounded" className={'mt-20 w-100p h-50'} />
+            <Skeleton variant="rounded" className={'mt-20 w-100p h-50'} />
+            <Skeleton variant="rounded" className={'mt-20 w-100p h-50'} />
           </>
         )}
       </div>

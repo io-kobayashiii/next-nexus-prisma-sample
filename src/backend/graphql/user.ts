@@ -37,14 +37,53 @@ export const UserMutationField = mutationType({
       },
       resolve: async (_root, { email, password, name }, ctx) => {
         const hashedPassword = await bcrypt.hash(password!, 10);
-        const newUser = await ctx.prisma.user.create({
+        const createdUser = await ctx.prisma.user.create({
           data: {
             email: email!,
             password: hashedPassword,
             name: name!,
           },
         });
-        return newUser;
+        return createdUser;
+      },
+    });
+
+    t.field('updateUser', {
+      type: objectType({
+        name: 'UpdateUserResponse',
+        definition: (t) => {
+          t.field('updatedUser', { type: UserType });
+          t.string('message');
+        },
+      }),
+      args: {
+        email: nonNull(stringArg()),
+        password: stringArg(),
+        name: stringArg(),
+      },
+      resolve: async (_root, { email, password, name }, ctx) => {
+        if (!email && !password && !name) {
+          return {
+            message: 'Must enter either "email", "name", or "password"',
+          };
+        }
+        const hashedPassword = await bcrypt.hash(password!, 10);
+        try {
+          const updatedUser = await ctx.prisma.user.update({
+            where: { email },
+            data: {
+              email: email!,
+              password: hashedPassword,
+              name: name!,
+            },
+          });
+          return { updatedUser, message: 'User update is succeeded' };
+        } catch (error) {
+          console.log(error);
+          return {
+            message: 'User update is failed',
+          };
+        }
       },
     });
 

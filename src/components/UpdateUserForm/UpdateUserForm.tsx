@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useMemo } from 'react';
 import { useMutation } from 'urql';
-import { CreateUserDocument } from '../../generated/graphql';
+import { UpdateUserDocument } from '../../generated/graphql';
 import * as yup from 'yup';
 import { SubmitHandler, useForm, FieldValues } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const UpdateUserForm = ({ className }: Props) => {
-  const [_, createUser] = useMutation(CreateUserDocument);
+  const [_, updateUser] = useMutation(UpdateUserDocument);
 
   const schema = useMemo(
     () =>
@@ -22,8 +22,8 @@ export const UpdateUserForm = ({ className }: Props) => {
           .string()
           .email('メールアドレスの形式が正しくありません')
           .required('この項目は必須です'),
-        password: yup.string().required('この項目は必須です'),
-        name: yup.string().required('この項目は必須です'),
+        password: yup.string(),
+        name: yup.string(),
       }),
     []
   );
@@ -38,6 +38,8 @@ export const UpdateUserForm = ({ className }: Props) => {
 
   const onUpdateButtonClick: SubmitHandler<FieldValues> = async (formInput) => {
     console.log('onUpdateButtonClick / formInput:', formInput);
+    const result = await updateUser(formInput);
+    console.log(result);
   };
 
   return (
@@ -51,7 +53,7 @@ export const UpdateUserForm = ({ className }: Props) => {
           onSubmit={handleSubmit(onUpdateButtonClick)}
         >
           <TextField
-            label="メールアドレス"
+            label="メールアドレス *"
             variant="standard"
             className={'w-100p mt-20'}
             error={'email' in errors}
@@ -82,7 +84,7 @@ export const UpdateUserForm = ({ className }: Props) => {
             variant={'contained'}
             type={'submit'}
             form={'update-user-form'}
-            className={'bg-orange-600'}
+            className={'bg-orange-600 hover:bg-orange-700'}
           >
             Update
           </Button>

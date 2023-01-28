@@ -52,7 +52,7 @@ export const CreateUserForm = ({ className }: Props) => {
           onSubmit={handleSubmit(onCreateButtonClick)}
         >
           <TextField
-            label="メールアドレス"
+            label="メールアドレス *"
             variant="standard"
             className={'w-100p mt-20'}
             error={'email' in errors}
@@ -60,7 +60,7 @@ export const CreateUserForm = ({ className }: Props) => {
             {...register('email')}
           />
           <TextField
-            label="パスワード"
+            label="パスワード *"
             variant="standard"
             className={'w-100p mt-20'}
             type={'password'}
@@ -70,7 +70,7 @@ export const CreateUserForm = ({ className }: Props) => {
             {...register('password')}
           />
           <TextField
-            label="表示名"
+            label="表示名 *"
             variant="standard"
             className={'w-100p mt-20'}
             error={'name' in errors}
@@ -83,7 +83,7 @@ export const CreateUserForm = ({ className }: Props) => {
             variant={'contained'}
             type={'submit'}
             form={'create-user-form'}
-            className={'bg-green-600'}
+            className={'bg-green-600 hover:bg-green-700'}
           >
             Create
           </Button>
