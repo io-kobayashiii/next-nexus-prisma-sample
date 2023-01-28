@@ -27,6 +27,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<UserType>;
   deleteUser?: Maybe<DeleteUserResponse>;
+  updateUser?: Maybe<UpdateUserResponse>;
 };
 
 
@@ -41,9 +42,22 @@ export type MutationDeleteUserArgs = {
   email: Scalars['String'];
 };
 
+
+export type MutationUpdateUserArgs = {
+  email: Scalars['String'];
+  name?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+};
+
 export type Query = {
   __typename?: 'Query';
   users?: Maybe<Array<Maybe<UserType>>>;
+};
+
+export type UpdateUserResponse = {
+  __typename?: 'UpdateUserResponse';
+  message?: Maybe<Scalars['String']>;
+  updatedUser?: Maybe<UserType>;
 };
 
 export type UserType = {
@@ -68,6 +82,15 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser?: { __typename?: 'UserType', id: number, email: string, name: string } | null };
+
+export type UpdateUserMutationVariables = Exact<{
+  email: Scalars['String'];
+  password?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser?: { __typename?: 'UpdateUserResponse', message?: string | null, updatedUser?: { __typename?: 'UserType', id: number, email: string, name: string } | null } | null };
 
 export type DeleteUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -104,6 +127,22 @@ export const CreateUserDocument = gql`
 
 export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(CreateUserDocument);
+};
+export const UpdateUserDocument = gql`
+    mutation UpdateUser($email: String!, $password: String, $name: String) {
+  updateUser(email: $email, password: $password, name: $name) {
+    updatedUser {
+      id
+      email
+      name
+    }
+    message
+  }
+}
+    `;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(UpdateUserDocument);
 };
 export const DeleteUserDocument = gql`
     mutation DeleteUser($email: String!) {

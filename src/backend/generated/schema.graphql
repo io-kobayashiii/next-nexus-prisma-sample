@@ -15,10 +15,16 @@ type DeleteUserResponse {
 type Mutation {
   createUser(email: String, name: String, password: String): UserType
   deleteUser(email: String!): DeleteUserResponse
+  updateUser(email: String!, name: String, password: String): UpdateUserResponse
 }
 
 type Query {
   users: [UserType]
+}
+
+type UpdateUserResponse {
+  message: String
+  updatedUser: UserType
 }
 
 type UserType {

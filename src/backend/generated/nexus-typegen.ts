@@ -50,6 +50,10 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Query: {};
+  UpdateUserResponse: { // root type
+    message?: string | null; // String
+    updatedUser?: NexusGenRootTypes['UserType'] | null; // UserType
+  }
   UserType: { // root type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     email: string; // String!
@@ -77,9 +81,14 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createUser: NexusGenRootTypes['UserType'] | null; // UserType
     deleteUser: NexusGenRootTypes['DeleteUserResponse'] | null; // DeleteUserResponse
+    updateUser: NexusGenRootTypes['UpdateUserResponse'] | null; // UpdateUserResponse
   }
   Query: { // field return type
     users: Array<NexusGenRootTypes['UserType'] | null> | null; // [UserType]
+  }
+  UpdateUserResponse: { // field return type
+    message: string | null; // String
+    updatedUser: NexusGenRootTypes['UserType'] | null; // UserType
   }
   UserType: { // field return type
     createdAt: NexusGenScalars['DateTime']; // DateTime!
@@ -98,9 +107,14 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createUser: 'UserType'
     deleteUser: 'DeleteUserResponse'
+    updateUser: 'UpdateUserResponse'
   }
   Query: { // field return type name
     users: 'UserType'
+  }
+  UpdateUserResponse: { // field return type name
+    message: 'String'
+    updatedUser: 'UserType'
   }
   UserType: { // field return type name
     createdAt: 'DateTime'
@@ -120,6 +134,11 @@ export interface NexusGenArgTypes {
     }
     deleteUser: { // args
       email: string; // String!
+    }
+    updateUser: { // args
+      email: string; // String!
+      name?: string | null; // String
+      password?: string | null; // String
     }
   }
 }

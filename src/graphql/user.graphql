@@ -16,6 +16,17 @@ mutation CreateUser($email: String!, $password: String!, $name: String!) {
   }
 }
 
+mutation UpdateUser($email: String!, $password: String, $name: String) {
+  updateUser(email: $email, password: $password, name: $name) {
+    updatedUser {
+      id
+      email
+      name
+    }
+    message
+  }
+}
+
 mutation DeleteUser($email: String!) {
   deleteUser(email: $email) {
     deletedUser {

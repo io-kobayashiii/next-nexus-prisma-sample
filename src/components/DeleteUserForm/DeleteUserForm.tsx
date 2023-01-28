@@ -51,7 +51,7 @@ export const DeleteUserForm = ({ className }: Props) => {
           onSubmit={handleSubmit(onDeleteButtonClick)}
         >
           <TextField
-            label="メールアドレス"
+            label="メールアドレス *"
             variant="standard"
             className={'w-100p mt-20'}
             error={'email' in errors}
@@ -64,7 +64,7 @@ export const DeleteUserForm = ({ className }: Props) => {
             variant={'contained'}
             type={'submit'}
             form={'dalete-user-form'}
-            className={'bg-red-600'}
+            className={'bg-red-600 hover:bg-red-700'}
           >
             Delete
           </Button>
