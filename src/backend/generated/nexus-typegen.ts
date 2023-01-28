@@ -44,8 +44,9 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  MessageType: { // root type
-    message: string; // String!
+  DeleteUserResponse: { // root type
+    deletedUser?: NexusGenRootTypes['UserType'] | null; // UserType
+    message?: string | null; // String
   }
   Mutation: {};
   Query: {};
@@ -69,12 +70,13 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  MessageType: { // field return type
-    message: string; // String!
+  DeleteUserResponse: { // field return type
+    deletedUser: NexusGenRootTypes['UserType'] | null; // UserType
+    message: string | null; // String
   }
   Mutation: { // field return type
     createUser: NexusGenRootTypes['UserType'] | null; // UserType
-    deleteUser: NexusGenRootTypes['MessageType'] | null; // MessageType
+    deleteUser: NexusGenRootTypes['DeleteUserResponse'] | null; // DeleteUserResponse
   }
   Query: { // field return type
     users: Array<NexusGenRootTypes['UserType'] | null> | null; // [UserType]
@@ -89,12 +91,13 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
-  MessageType: { // field return type name
+  DeleteUserResponse: { // field return type name
+    deletedUser: 'UserType'
     message: 'String'
   }
   Mutation: { // field return type name
     createUser: 'UserType'
-    deleteUser: 'MessageType'
+    deleteUser: 'DeleteUserResponse'
   }
   Query: { // field return type name
     users: 'UserType'

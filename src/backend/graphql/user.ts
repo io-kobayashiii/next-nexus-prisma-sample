@@ -7,7 +7,6 @@ import {
   stringArg,
 } from 'nexus';
 import bcrypt from 'bcryptjs';
-import { MessageType } from './response';
 
 export const UserType = objectType({
   name: 'UserType',
@@ -50,21 +49,30 @@ export const UserMutationField = mutationType({
     });
 
     t.field('deleteUser', {
-      type: MessageType,
+      type: objectType({
+        name: 'DeleteUserResponse',
+        definition: (t) => {
+          t.field('deletedUser', { type: UserType });
+          t.string('message');
+        },
+      }),
       args: {
         email: nonNull(stringArg()),
       },
       resolve: async (_root, { email }, ctx) => {
         console.log('deleteUser / email:', email);
         try {
-          await ctx.prisma.user.delete({ where: { email } });
+          const deletedUser = await ctx.prisma.user.delete({
+            where: { email },
+          });
           return {
+            deletedUser,
             message: 'User deletion is succeeded',
           };
         } catch (error) {
           console.log(error);
           return {
-            message: 'User is not found',
+            message: 'User deletion is failed',
           };
         }
       },

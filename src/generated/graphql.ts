@@ -17,15 +17,16 @@ export type Scalars = {
   DateTime: string;
 };
 
-export type MessageType = {
-  __typename?: 'MessageType';
-  message: Scalars['String'];
+export type DeleteUserResponse = {
+  __typename?: 'DeleteUserResponse';
+  deletedUser?: Maybe<UserType>;
+  message?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   createUser?: Maybe<UserType>;
-  deleteUser?: Maybe<MessageType>;
+  deleteUser?: Maybe<DeleteUserResponse>;
 };
 
 
@@ -73,7 +74,7 @@ export type DeleteUserMutationVariables = Exact<{
 }>;
 
 
-export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'MessageType', message: string } | null };
+export type DeleteUserMutation = { __typename?: 'Mutation', deleteUser?: { __typename?: 'DeleteUserResponse', message?: string | null, deletedUser?: { __typename?: 'UserType', id: number, email: string, name: string } | null } | null };
 
 
 export const UsersDocument = gql`
@@ -107,6 +108,11 @@ export function useCreateUserMutation() {
 export const DeleteUserDocument = gql`
     mutation DeleteUser($email: String!) {
   deleteUser(email: $email) {
+    deletedUser {
+      id
+      email
+      name
+    }
     message
   }
 }
